@@ -91,22 +91,4 @@ class authorSpider(scrapy.Spider):
             item["author_url"] = author_urls[i]
             yield item
 
-class typeSpider(scrapy.Spider):
-    name = "type"
-    allowed_domains = ["behance.net"]
-    headers = {
-        "X-Requested-With": "XMLHttpRequest",
-    }
 
-
-    def start_requests(self):
-        url = "https://www.behance.net/search"
-        yield scrapy.Request(url=url, callback=self.parse, headers=self.headers)
-
-
-    def parse(self, response):
-        if "html" not in response.body:
-            return
-        html = json.loads(response.body)["html"]
-        type_names = sel.get_type_names(html)
-        print type_names
