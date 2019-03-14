@@ -3,6 +3,6 @@
 from scrapy import cmdline
 
 # name = 'portfolio'
-name = 'type'
+name = 'author'
 cmd = 'scrapy crawl {0}'.format(name)
 cmdline.execute(cmd.split())

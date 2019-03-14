@@ -49,9 +49,9 @@ NEWSPIDER_MODULE = 'behance.spiders'
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
+# DOWNLOADER_MIDDLEWARES = {
 #    'behance.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+# }
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -86,7 +86,7 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 MYSQL_HOST = '127.0.0.1'
-MYSQL_DBNAME = 'tags'         #数据库名字，请修改
+MYSQL_DBNAME = 'images'         #数据库名字，请修改
 MYSQL_USER = 'root'             #数据库账号，请修改
 MYSQL_PASSWD = '123456'         #数据库密码，请修改
 

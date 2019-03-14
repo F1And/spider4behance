@@ -45,7 +45,7 @@ class DBHelper():
     # 错误处理方法
 
     def insert_author(self, item):
-        sql = "insert into behance_author(author_name,author_url) values(%s,%s)"
+        sql = "insert into behance_author(author_name,author_url,create_time) values(%s,%s,now())"
         # 调用插入的方法
         query = self.dbpool.runInteraction(self._conditional_insert_author, sql, item)
         # 调用异常处理方法
