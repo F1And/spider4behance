@@ -22,3 +22,11 @@ class AuthorPipeline(object):
     def process_item(self, item, spider):
         self.db.insert_author(item)
         return item
+
+class ZcoolPipeline(object):
+    def __init__(self):
+        self.db = DBHelper()
+
+    def process_item(self, item, spider):
+        self.db.insert_zcool_url(item)
+        return item

@@ -38,3 +38,24 @@ def get_type_names(html):
     type_names = sel.xpath(
         "/html/body/div").extract()
     return type_names
+
+def get_zcool_author_url(html):
+    sel = Selector(text=html)
+    # 作者主页URL
+    author_urls = sel.xpath(
+        "/html/body/div//div[@class='all-work-list']/div//div//span/a//@href").extract()
+    return author_urls
+
+def get_zcool_author_name(html):
+    sel = Selector(text=html)
+    # 作者主页URL
+    author_names = sel.xpath(
+        "/html/body/div//div[@class='all-work-list']/div//div//span/a//@title").extract()
+    return author_names
+
+def get_zcool_picture_url(html):
+    sel = Selector(text=html)
+    # 作者主页URL
+    picture_urls = sel.xpath(
+        "//div[@class='work-show-box']//img/@src").extract()
+    return picture_urls

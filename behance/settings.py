@@ -62,8 +62,9 @@ DOWNLOAD_TIMEOUT = 60
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'behance.pipelines.tagPipelines.BehancePipeline': 300,
-   # 'behance.pipelines.tagPipelines.AuthorPipeline': 300,
+   # 'behance.pipelines.tagPipelines.BehancePipeline': 300,
+   'behance.pipelines.tagPipelines.AuthorPipeline': 300,
+   # 'behance.pipelines.tagPipelines.ZcoolPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

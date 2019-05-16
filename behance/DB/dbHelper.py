@@ -15,6 +15,7 @@ class DBHelper():
             db=settings['MYSQL_DBNAME'],
             user=settings['MYSQL_USER'],
             passwd=settings['MYSQL_PASSWD'],
+            port = settings['MYSQL_PORT'],
             charset='utf8',
             cursorclass=pymysql.cursors.DictCursor,
             use_unicode=False,
@@ -55,6 +56,20 @@ class DBHelper():
 
     def _conditional_insert_author(self, tx, sql, item):
         params = (item["author_name"], item["author_url"])
+        tx.execute(sql, params)
+
+
+    def insert_zcool_url(self, item):
+        sql = "insert into zcool_picture(pic_url) values(%s)"
+        # 调用插入的方法
+        query = self.dbpool.runInteraction(self._conditional_insert_zcool_url, sql, item)
+        # 调用异常处理方法
+        query.addErrback(self._handle_error)
+
+        return item
+
+    def _conditional_insert_zcool_url(self, tx, sql, item):
+        params = (item["pic_url"])
         tx.execute(sql, params)
 
 
