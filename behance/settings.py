@@ -13,7 +13,7 @@ BOT_NAME = 'behance'
 
 SPIDER_MODULES = ['behance.spiders']
 NEWSPIDER_MODULE = 'behance.spiders'
-
+DOWNLOAD_TIMEOUT = 60
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'behance (+http://www.yourdomain.com)'
@@ -62,8 +62,8 @@ NEWSPIDER_MODULE = 'behance.spiders'
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   # 'behance.pipelines.tagPipelines.BehancePipeline': 300,
-   'behance.pipelines.tagPipelines.AuthorPipeline': 300,
+   'behance.pipelines.tagPipelines.BehancePipeline': 300,
+   # 'behance.pipelines.tagPipelines.AuthorPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -90,4 +90,11 @@ MYSQL_DBNAME = 'images'         #数据库名字，请修改
 MYSQL_USER = 'root'             #数据库账号，请修改
 MYSQL_PASSWD = '123456'         #数据库密码，请修改
 
-MYSQL_PORT = 3306               #数据库端口，在dbhelper中使用
+MYSQL_PORT = 53306              #数据库端口，在dbhelper中使用
+
+
+# DOWNLOADER_MIDDLEWARES = {
+#     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
+#     'behance.middlewares.ProxyMiddleware': 100,
+#     # 'behance.middlewares.DelayAfterConnectionRefusedMiddleware': 510,
+# }
