@@ -3,7 +3,7 @@
 # 业务包：爬出behance作品集
 
 import scrapy
-from behance.item.tagItems import tagItem, authorItem, zcoolItem
+from behance.item.tagItems import tagItem, authorItem, zcoolPictureItem
 import constants as cs
 import behance.common.selectUrl as sel
 import json
@@ -87,8 +87,8 @@ class authorSpider(scrapy.Spider):
             yield item
 
 
-class zcoolSpider(scrapy.Spider):
-    name = "zcool"
+class zcoolAuthorSpider(scrapy.Spider):
+    name = "zcoolAuthor"
     allowed_domains = ["zcool.com.cn"]
     headers = {
         "X-Requested-With": "XMLHttpRequest",
@@ -107,22 +107,43 @@ class zcoolSpider(scrapy.Spider):
         html = response.body
         author_urls =  sel.get_zcool_author_url(html)
         author_names = sel.get_zcool_author_name(html)
-        print author_urls, author_names
 
         for i in range(0, per_page):
             item = authorItem()
             item["author_name"] = author_names[i]
             item["author_url"] = author_urls[i]
             yield item
-            # yield scrapy.Request(url=author_urls[i], callback=self.picture_parse, headers=self.headers)
 
-    # def picture_parse(self, response):
-    #     if "html" not in response.body:
-    #         return
-    #     html = response.body
-    #     picture_urls = sel.get_zcool_picture_url(html)
-    #     for picture_url in picture_urls:
-    #         print picture_url
-        #     item = zcoolItem()
-        #     item['pic_url'] = picture_url
-        #     yield item
+class zcoolPictureSpider(scrapy.Spider):
+    name = "zcoolPicture"
+    allowed_domains = ["zcool.com.cn"]
+    headers = {
+        "X-Requested-With": "XMLHttpRequest",
+    }
+
+    def start_requests(self):
+        for ordinal in range(1, 100):
+            url = "https://www.zcool.com.cn/discover/8!0!0!0!0!!!!2!-1!%d"
+            yield scrapy.Request(url=url % ordinal, callback=self.parse, headers=self.headers)
+
+    def parse(self, response):
+        per_page = 25
+        if "html" not in response.body:
+            return
+        html = response.body
+        picture_urls = sel.get_zcool_picture_urls(html)
+
+        for i in range(0, per_page):
+            picture_url = picture_urls[i]
+            yield scrapy.Request(url=picture_url, callback=self.picture_parse, headers=self.headers)
+
+    def picture_parse(self, response):
+        if "html" not in response.body:
+            return
+        html = response.body
+        picture_urls = sel.get_zcool_picture_url(html)
+
+        for picture_url in picture_urls:
+            item = zcoolPictureItem()
+            item["pic_url"] = picture_url.split('@')[0]
+            yield item

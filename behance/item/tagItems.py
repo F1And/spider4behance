@@ -15,6 +15,6 @@ class authorItem(scrapy.Item):
     author_url = scrapy.Field()
     pass
 
-class zcoolItem(scrapy.Item):
+class zcoolPictureItem(scrapy.Item):
     pic_url = scrapy.Field()
     pass
